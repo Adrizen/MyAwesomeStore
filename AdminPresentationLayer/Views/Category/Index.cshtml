@@ -1,0 +1,55 @@
+﻿
+@model IEnumerable<AdminPresentationLayer.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Categories</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Category" asp-action="Create" class="btn btn-primary">Add new category</a>
+                
+        </div>
+        <br />
+
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-bordered table-striped" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Category name
+                        </th>
+                        <th>
+                            // Buttons here.
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th width="50%">@item.idCategory</th>
+                            <th width="50%">@item.info</th>
+                            <th>// Buttons here.</th> 
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        } else
+        {
+            <p>There are not categories in the database.</p>
+        }
+    </div>
+</div>
+

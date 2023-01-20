@@ -12,5 +12,6 @@ namespace AdminPresentationLayer.Data
         }
 
         public DbSet<Brand> Brand { get; set; }
+        public DbSet<Category> Category { get; set; }
     }
 }

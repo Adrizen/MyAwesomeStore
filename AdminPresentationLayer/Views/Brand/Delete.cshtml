@@ -1,0 +1,43 @@
+﻿@model AdminPresentationLayer.Models.Brand
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form method="post" asp-action="Delete">
+    <input asp-for="idBrand" hidden />
+    <div class="border-bottom p-3">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group row">
+            <h2 class="text-danger pl-3"> <i class="fa-solid fa-circle-exclamation"></i> Are you sure you want to delete this brand?</h2>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="info" class="form-label">Brand name</label>
+                    <input asp-for="info" disabled class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="d-grid gap-2 d-md-block">
+                <button type="submit" class="btn btn-danger"> <i class="fa-solid fa-trash"></i> Delete</button>
+                <a asp-controller="Brand" asp-action="Index" class="btn btn-success"> <i class="fa-solid fa-arrow-rotate-left"></i> Go back</a>
+
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts {
+    @*Validation in client level*@
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+

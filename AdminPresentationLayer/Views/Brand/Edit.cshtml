@@ -1,0 +1,45 @@
+﻿
+@model AdminPresentationLayer.Models.Brand
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form method="post" asp-action="Edit">
+    <input asp-for="idBrand" hidden />
+    <div class="border-bottom p-3">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Edit Brand</h2>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="info" class="form-label">Brand name</label>
+                    <input asp-for="info" class="form-control" />
+                    <span asp-validation-for="info" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="d-grid gap-2 d-md-block">
+                <button type="submit" class="btn btn-primary"> <i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                <a asp-controller="Brand" asp-action="Index" class="btn btn-success"> <i class="fa-solid fa-arrow-rotate-left"></i> Go back</a>
+
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts {
+    @*Validation in client level*@
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+

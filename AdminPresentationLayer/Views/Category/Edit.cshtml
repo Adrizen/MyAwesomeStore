@@ -1,18 +1,18 @@
-﻿
-@model AdminPresentationLayer.Models.Category
+﻿@model AdminPresentationLayer.Models.Category
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<form method="post" asp-action="Create">
+<form method="post" asp-action="Edit">
+    <input asp-for="idCategory" hidden/>
     <div class="border-bottom p-3">
 
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="form-group row">
-            <h2 class="text-info pl-3">New Category</h2>
+            <h2 class="text-info pl-3">Edit Category</h2>
         </div>
 
         <div class="container">
@@ -25,7 +25,7 @@
             </div>
             <br />
             <div class="d-grid gap-2 d-md-block">
-                <button type="submit" class="btn btn-primary">Create new</button>
+                <button type="submit" class="btn btn-primary">Edit</button>
                 <a asp-controller="Category" asp-action="Index" class="btn btn-success">Go back</a>
 
             </div>
@@ -34,7 +34,9 @@
 
 </form>
 
-@section Scripts { @*Validation in client level*@
+@section Scripts {
+    @*Validation in client level*@
     @{
-        <partial name="_ValidationScriptsPartial" />  }
+        <partial name="_ValidationScriptsPartial" />
+    }
 }

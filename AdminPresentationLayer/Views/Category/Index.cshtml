@@ -29,7 +29,7 @@
                             Category name
                         </th>
                         <th>
-                            // Buttons here.
+                            
                         </th>
                     </tr>
                 </thead>
@@ -39,8 +39,13 @@
                     {
                         <tr>
                             <th width="50%">@item.idCategory</th>
-                            <th width="50%">@item.info</th>
-                            <th>// Buttons here.</th> 
+                            <th width="30%">@item.info</th>
+                            <th class="text-center">
+                                <div class="w-75 btn-group" role="group">
+                                    <a asp-controller="Category" asp-action="Edit" asp-route-idCategory="@item.idCategory" class="btn btn-outline-primary mx-2">Edit</a>
+                                    <a asp-controller="Category" asp-action="Delete" asp-route-idCategory="@item.idCategory" class="btn btn-outline-danger mx-2">Delete</a>
+                                </div>
+                            </th> 
                         </tr>
                     }
                 </tbody>

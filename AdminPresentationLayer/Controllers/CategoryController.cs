@@ -1,6 +1,7 @@
 ﻿using AdminPresentationLayer.Data;
 using AdminPresentationLayer.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdminPresentationLayer.Controllers
 {
@@ -32,9 +33,80 @@ namespace AdminPresentationLayer.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Category category)
         {
-            _db.Category.Add(category);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid) {
+                _db.Category.Add(category);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            } else
+            {
+                return View(category);
+            }
+        }
+
+        // Edit
+        public IActionResult Edit(int? idCategory)
+        {
+            if (idCategory == null || idCategory == 0)
+            {
+                return NotFound();
+            }
+
+            var obj = _db.Category.Find(idCategory);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Category.Update(category);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(category);
+            }
+        }
+
+        // Delete
+        public IActionResult Delete(int? idCategory)
+        {
+            if (idCategory == null || idCategory == 0)
+            {
+                return NotFound();
+            }
+
+            var obj = _db.Category.Find(idCategory);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Category category)
+        {
+            if (category == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _db.Category.Remove(category);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
         }
 
     }

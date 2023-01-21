@@ -1,0 +1,100 @@
+﻿
+@model AdminPresentationLayer.Models.Product
+
+@{
+    // ViewData["Title"] = "Upsert";
+    var title = "Create new product"; // Default title.
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+    @if (Model.idProduct != 0)  // If the product already exists, then the title change.
+    {
+        title = "Edit product";
+        <input asp-for="idProduct" hidden />
+    }
+
+    <div class="border p-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <h2 class="text-info">@title</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                           <label asp-for="nameProduct" class="form-label">Product name</label>
+                           <input asp-for="nameProduct" class="form-control" />
+                           <span asp-validation-for="nameProduct" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="info" class="form-label">Description</label>
+                            <input asp-for="info" class="form-control" />
+                            <span asp-validation-for="info" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="info" class="form-label">Description</label>
+                            <input asp-for="info" class="form-control" />
+                            <span asp-validation-for="info" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="price" class="form-label">Price</label>
+                            <input asp-for="price" class="form-control" />
+                            <span asp-validation-for="price" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="stockQuantity" class="form-label">Stock</label>
+                            <input asp-for="stockQuantity" class="form-control" />
+                            <span asp-validation-for="stockQuantity" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="imageURL" class="form-label">Image</label>
+                            <input type="file" name="files" id="imageID" class="form-control" />
+                            <span asp-validation-for="info" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="registerDate" class="form-label">Register date</label>
+                            <input asp-for="registerDate" class="form-control" />
+                            <span asp-validation-for="registerDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="d-grid gap-2 d-md-block">
+                        @if (Model.idProduct != 0)
+                        {
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        } else
+                        {
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        }
+                        <a asp-controller="Product" asp-action="Index" class="btn btn-success">Return</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

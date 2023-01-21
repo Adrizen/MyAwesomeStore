@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# User custom files (fontawesome 20MB folder)
+AdminPresentationLayer/wwwroot/fontawesome/
+
 # User-specific files
 *.rsuser
 *.suo

@@ -1,5 +1,5 @@
 ﻿
-@model AdminPresentationLayer.Models.Product
+@model AdminPresentationLayer.Models.ViewModels.ProductVM
 
 @{
     // ViewData["Title"] = "Upsert";
@@ -8,10 +8,10 @@
 }
 
 <form method="post" asp-action="Upsert" enctype="multipart/form-data">
-    @if (Model.idProduct != 0)  // If the product already exists, then the title change.
+    @if (Model.product.idProduct != 0)  // If the product already exists, then the title change.
     {
         title = "Edit product";
-        <input asp-for="idProduct" hidden />
+        <input asp-for="product.idProduct" hidden />
     }
 
     <div class="border p-3">
@@ -21,75 +21,85 @@
         </div>
 
         <div class="row">
-            <div class="col-6">
+            <div class="col-8">
                 <div class="container">
 
                     <div class="row">
-                        <div class="col-md-6">
-                           <label asp-for="nameProduct" class="form-label">Product name</label>
-                           <input asp-for="nameProduct" class="form-control" />
-                           <span asp-validation-for="nameProduct" class="text-danger"></span>
+                        <div class="col-md-10">
+                            <label asp-for="product.nameProduct" class="form-label">Product name</label>
+                            <input asp-for="product.nameProduct" class="form-control" />
+                            <span asp-validation-for="product.nameProduct" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <label asp-for="info" class="form-label">Description</label>
-                            <input asp-for="info" class="form-control" />
-                            <span asp-validation-for="info" class="text-danger"></span>
+                        <div class="col-md-10">
+                            <label asp-for="product.info" class="form-label">Description</label>
+                            <textarea asp-for="product.info" class="form-control summernote" > </textarea>
+                            <span asp-validation-for="product.info" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <label asp-for="info" class="form-label">Description</label>
-                            <input asp-for="info" class="form-control" />
-                            <span asp-validation-for="info" class="text-danger"></span>
+                        <div class="col-md-10">
+                            <label asp-for="product.price" class="form-label">Price</label>
+                            <input asp-for="product.price" class="form-control" />
+                            <span asp-validation-for="product.price" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <label asp-for="price" class="form-label">Price</label>
-                            <input asp-for="price" class="form-control" />
-                            <span asp-validation-for="price" class="text-danger"></span>
+                        <div class="col-md-10">
+                            <label asp-for="product.stockQuantity" class="form-label">Stock</label>
+                            <input asp-for="product.stockQuantity" class="form-control" />
+                            <span asp-validation-for="product.stockQuantity" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <label asp-for="stockQuantity" class="form-label">Stock</label>
-                            <input asp-for="stockQuantity" class="form-control" />
-                            <span asp-validation-for="stockQuantity" class="text-danger"></span>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label asp-for="imageURL" class="form-label">Image</label>
+                        <div class="col-md-10">
+                            <label asp-for="product.imageURL" class="form-label">Image</label>
                             <input type="file" name="files" id="imageID" class="form-control" />
-                            <span asp-validation-for="info" class="text-danger"></span>
+                            <span asp-validation-for="product.imageURL" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <label asp-for="registerDate" class="form-label">Register date</label>
-                            <input asp-for="registerDate" class="form-control" />
-                            <span asp-validation-for="registerDate" class="text-danger"></span>
+                        <div class="col-md-10">
+                            <label asp-for="product.registerDate" class="form-label">Register date</label>
+                            <input asp-for="product.registerDate" class="form-control" />
+                            <span asp-validation-for="product.registerDate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <label asp-for="product.idCategory" class="form-label">Category</label>
+                            <select asp-for="product.idCategory" asp-items="@Model.categoryList" class="form-select">
+                                <option disabled selected>Choose a category</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <label asp-for="product.idBrand" class="form-label">Brand</label>
+                            <select asp-for="product.idBrand" asp-items="@Model.brandList" class="form-select">
+                                <option disabled selected>Choose a brand</option>
+                            </select>
                         </div>
                     </div>
                     <br />
 
                     <div class="d-grid gap-2 d-md-block">
-                        @if (Model.idProduct != 0)
+                        @if (Model.product.idProduct != 0)
                         {
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary"> <i class="fa-solid fa-pen-to-square"> </i> Update</button>
                         } else
                         {
-                            <button type="submit" class="btn btn-primary">Create</button>
+                            <button type="submit" onclick="return validateImage()" class="btn btn-primary"> <i class="fa-solid fa-plus"></i> Create</button>
                         }
-                        <a asp-controller="Product" asp-action="Index" class="btn btn-success">Return</a>
+                        <a asp-controller="Product" asp-action="Index" class="btn btn-success"> <i class="fa-solid fa-arrow-rotate-left"> </i> Return</a>
                     </div>
 
                 </div>
@@ -98,3 +108,27 @@
     </div>
 </form>
 
+@section Scripts {
+    @*Validation in client level*@
+    @{ <partial name="_ValidationScriptsPartial" /> }
+
+        <script>
+
+            $(document).ready(function () {
+                $('.summernote').summernote({
+                    height: 250
+                });
+            });
+
+            function validateImage() {
+                if (document.getElementById("imageID").value == "") {
+                    swal("Error", "Upload an image", "error");
+                    return false;
+                }
+                return true;
+            }
+        </script>
+    
+
+    
+}

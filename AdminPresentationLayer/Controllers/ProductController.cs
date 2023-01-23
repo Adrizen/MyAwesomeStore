@@ -1,6 +1,8 @@
 ﻿using AdminPresentationLayer.Data;
 using AdminPresentationLayer.Models;
+using AdminPresentationLayer.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace AdminPresentationLayer.Controllers
@@ -24,19 +26,43 @@ namespace AdminPresentationLayer.Controllers
         // Get.
         public IActionResult Upsert(int? idProduct)
         {
-            Product product = new Product();
+            //IEnumerable<SelectListItem> categoryDropdown = _db.Category.Select(c => new SelectListItem
+            //{
+            //    Text = c.info,
+            //    Value = c.idCategory.ToString()
+            //});
+
+            //ViewBag.categoryDropdown = categoryDropdown;
+
+            //Product product = new Product();
+
+            ProductVM productVM = new ProductVM()
+            {
+                product = new Product(),
+                categoryList = _db.Category.Select(c => new SelectListItem
+            {
+                Text = c.info,
+                Value = c.idCategory.ToString()
+            }),
+                brandList = _db.Brand.Select(c => new SelectListItem
+                {
+                    Text = c.info,
+                    Value = c.idBrand.ToString()
+                }),
+            };
+
             if (idProduct == null)
             {
                 // Create new product.
-                return View(product);
+                return View(productVM);
             } else
             {
-                product = _db.Products.Find(idProduct);
-                if (product == null)
+                productVM.product = _db.Products.Find(idProduct);
+                if (productVM.product == null)
                 {
                     return NotFound();
                 }
-                return View(product);
+                return View(productVM);
             }
         }
     }

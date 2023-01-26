@@ -101,8 +101,14 @@
                         }
                         <a asp-controller="Product" asp-action="Index" class="btn btn-success"> <i class="fa-solid fa-arrow-rotate-left"> </i> Return</a>
                     </div>
-
                 </div>
+            </div>
+
+            <div class="col-4">
+                @if (Model.product.idProduct != 0)  // Show the preview image only if editing an existing product.
+                {
+                    <img src="@WC.imageURL@Model.product.imageURL" style="border-radius:5px; border:1px solid #bbb; width: 100%" />
+                }
             </div>
         </div>
     </div>

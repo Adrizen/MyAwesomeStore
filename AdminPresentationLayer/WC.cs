@@ -2,6 +2,6 @@
 {
     public static class WC
     {
-        public static string imageURL = @"/images/products";
+        public static string imageURL = @"/images/products/";
     }
 }

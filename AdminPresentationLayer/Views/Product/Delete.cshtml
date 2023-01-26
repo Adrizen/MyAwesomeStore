@@ -1,0 +1,107 @@
+﻿@model AdminPresentationLayer.Models.Product
+
+@{
+    // ViewData["Title"] = "Upsert";
+    var title = "Delete new product"; // Default title.
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" asp-action="Delete" >
+    <input asp-for="idProduct" hidden />
+
+    <div class="border p-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <h2 class="text-danger">@title</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-8">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <label asp-for="nameProduct" class="form-label">Product name</label>
+                            <input asp-for="nameProduct" disabled class="form-control" />
+                            
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <label asp-for="info" class="form-label">Description</label>
+                            <textarea asp-for="info" disabled class="form-control"> </textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <label asp-for="price" class="form-label">Price</label>
+                            <input asp-for="price" disabled class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row" hidden>
+                        <div class="col-md-10">
+                            <label asp-for="stockQuantity" class="form-label">Stock</label>
+                            <input asp-for="stockQuantity" disabled class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row" hidden>
+                        <div class="col-md-10">
+                            <label asp-for="imageURL" class="form-label">Image</label>
+                            <input asp-for="imageURL" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <label asp-for="registerDate" class="form-label">Register date</label>
+                            <input asp-for="registerDate" disabled class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row" hide
+                        >
+                        <div class="col-md-10">
+                            <label asp-for="idCategory" class="form-label">Category</label>
+                            <input asp-for="idCategory" hidden class="form-control" />
+                            <input asp-for="Category.info" disabled class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <label asp-for="idBrand" class="form-label">Brand</label>
+                            <input asp-for="idBrand" hidden class="form-control" />
+                            <input asp-for="Brand.info" disabled class="form-control" />
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="d-grid gap-2 d-md-block">
+                        <button type="submit" class="btn btn-danger"> <i class="fa-solid fa-trash"></i> Delete</button>
+                        <a asp-controller="Product" asp-action="Index" class="btn btn-success"> <i class="fa-solid fa-arrow-rotate-left"> </i> Return</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                @if (Model.idProduct != 0)  // Show the preview image only if editing an existing product.
+                {
+                    <img src="@WC.imageURL@Model.imageURL" style="border-radius:5px; border:1px solid #bbb; width: 100%" />
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @*Validation in client level*@
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}
+

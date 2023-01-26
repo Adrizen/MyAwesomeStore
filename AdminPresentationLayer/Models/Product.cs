@@ -18,14 +18,13 @@ namespace AdminPresentationLayer.Models
         public int idBrand { get; set; }
 
         [ForeignKey("idBrand")]
-        public virtual Brand Brand { get; set; }
+        public virtual Brand? Brand { get; set; }
 
         // Foreign key.
         public int idCategory { get; set; }
 
         [ForeignKey("idCategory")]
-        public virtual Category Category { get; set; }
-
+        public virtual Category? Category { get; set; }
 
         [Required(ErrorMessage = "A price is required for this product.")]
         [Range(0, int.MaxValue, ErrorMessage = "Price must be positive")]
@@ -33,9 +32,7 @@ namespace AdminPresentationLayer.Models
 
         public int stockQuantity { get; set; }
 
-        public string imageURL { get; set; }
-
-        public string imageName { get; set; }
+        public string? imageURL { get; set; }
 
         public bool active { get; set; } = true;
 

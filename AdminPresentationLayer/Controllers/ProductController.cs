@@ -4,16 +4,19 @@ using AdminPresentationLayer.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace AdminPresentationLayer.Controllers
 {
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductController(ApplicationDbContext db)
+        public ProductController(ApplicationDbContext db, IWebHostEnvironment webHostEnvironment)
         {
             _db = db;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Index()
@@ -65,5 +68,41 @@ namespace AdminPresentationLayer.Controllers
                 return View(productVM);
             }
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(ProductVM productVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var files = HttpContext.Request.Form.Files;
+                string webRootPath = _webHostEnvironment.WebRootPath;
+                if (productVM.product.idProduct == 0)
+                {
+                    // Create.
+                    Console.WriteLine("Turip");
+                    string upload = webRootPath + WC.imageURL;
+                    string fileName = Guid.NewGuid().ToString();
+                    string extension = Path.GetExtension(files[0].FileName);
+
+                    using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
+                    {
+                        files[0].CopyTo(fileStream);
+                    }
+
+                    productVM.product.imageURL = fileName + extension;
+                    _db.Products.Add(productVM.product);
+
+                } else
+                {
+                    // Update.
+                }
+
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(productVM);
+        }
+
     }
 }

@@ -6,8 +6,8 @@ namespace AdminPresentationLayer.Models.ViewModels
     {
         public Product product { get; set; }
 
-        public IEnumerable<SelectListItem> categoryList { get; set; }
+        public IEnumerable<SelectListItem>? categoryList { get; set; }
 
-        public IEnumerable<SelectListItem> brandList { get; set; }
+        public IEnumerable<SelectListItem>? brandList { get; set; }
     }
 }

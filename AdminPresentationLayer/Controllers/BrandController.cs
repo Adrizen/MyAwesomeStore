@@ -8,11 +8,13 @@ namespace AdminPresentationLayer.Controllers
     {
         private readonly ApplicationDbContext _db;
 
+        // Get the DB.
         public BrandController(ApplicationDbContext db)
         {
             _db = db;
         }
 
+        // Retrieve and show all the brands.
         public IActionResult Index()
         {
             IEnumerable<Brand> brandList = _db.Brand;
@@ -44,7 +46,7 @@ namespace AdminPresentationLayer.Controllers
             
         }
 
-        // Edit
+        // EDIT
         public IActionResult Edit(int? idBrand)
         {
             if (idBrand == null || idBrand == 0)
@@ -77,7 +79,7 @@ namespace AdminPresentationLayer.Controllers
             }
         }
 
-        // Delete
+        // DELETE.
         public IActionResult Delete(int? idBrand)
         {
             if (idBrand == null || idBrand == 0)

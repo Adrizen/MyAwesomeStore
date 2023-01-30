@@ -26,7 +26,7 @@ namespace AdminPresentationLayer.Controllers
             return View(productsList);
         }
 
-        // Get.
+        // GET. If the product doesn't exists, then create one. If it exists, then edit it.
         public IActionResult Upsert(int? idProduct)
         {
             //IEnumerable<SelectListItem> categoryDropdown = _db.Category.Select(c => new SelectListItem
@@ -39,6 +39,7 @@ namespace AdminPresentationLayer.Controllers
 
             //Product product = new Product();
 
+            // Create a product view model with a category and brand lists.
             ProductVM productVM = new ProductVM()
             {
                 product = new Product(),
@@ -78,8 +79,7 @@ namespace AdminPresentationLayer.Controllers
                 var files = HttpContext.Request.Form.Files;
                 string webRootPath = _webHostEnvironment.WebRootPath;
 
-                // TODO: Please note that trying to load an image with BRAVE BROWSER crash the project.
-                if (productVM.product.idProduct == 0)
+                if (productVM.product.idProduct == 0)   // Product doesn't exists.
                 {
                     // Create a new product with a new image.
                     string upload = webRootPath + WC.imageURL;
@@ -88,13 +88,13 @@ namespace AdminPresentationLayer.Controllers
 
                     using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
                     {
-                        files[0].CopyTo(fileStream);
+                        files[0].CopyTo(fileStream);    // Store image in 'wwwroot/images/products' folder.
                     }
 
                     productVM.product.imageURL = fileName + extension;
                     _db.Products.Add(productVM.product);
 
-                } else
+                } else // Product does exists.
                 {
                     // Update product's image.
                     var objProduct = _db.Products.AsNoTracking().FirstOrDefault(p => p.idProduct == productVM.product.idProduct);
@@ -109,12 +109,12 @@ namespace AdminPresentationLayer.Controllers
                         var oldImageFile = Path.Combine(upload, objProduct.imageURL);
                         if (System.IO.File.Exists(oldImageFile))
                         {
-                            System.IO.File.Delete(oldImageFile);
+                            System.IO.File.Delete(oldImageFile);    // Delete image in 'wwwroot/images/products' folder
                         }
 
                         using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
                         {
-                            files[0].CopyTo(fileStream);
+                            files[0].CopyTo(fileStream);    // Store image in 'wwwroot/images/products' folder
                         }
 
                         productVM.product.imageURL = fileName + extension;
@@ -123,7 +123,7 @@ namespace AdminPresentationLayer.Controllers
                         // Update the product but not his image.
                         productVM.product.imageURL = objProduct.imageURL;
                     }
-                    _db.Products.Update(productVM.product);
+                    _db.Products.Update(productVM.product); // Update the product in the DB.
                 }
 
                 _db.SaveChanges();

@@ -43,7 +43,7 @@ namespace AdminPresentationLayer.Controllers
             }
         }
 
-        // Edit
+        // EDIT.
         public IActionResult Edit(int? idCategory)
         {
             if (idCategory == null || idCategory == 0)
@@ -76,7 +76,7 @@ namespace AdminPresentationLayer.Controllers
             }
         }
 
-        // Delete
+        // DELETE.
         public IActionResult Delete(int? idCategory)
         {
             if (idCategory == null || idCategory == 0)

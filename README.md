@@ -9,3 +9,4 @@ It was also used:
 - [Summernote](https://summernote.org/)
 - [Bootstrap](https://getbootstrap.com/)
 
+Screenshots: https://imgur.com/a/s2kPk0T
